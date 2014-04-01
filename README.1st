@@ -1,0 +1,6 @@
+This is random notes.
+
+jQuery modules don't really have any directory structure, this project root is pretending to be the htdocs directory (or whatever your servers rootdir is called).
+
+The contents of import should never be installed, but are necessary to be able to run test scripts etc.  Please get 3rd party libraries from their respective sources.  This ensure they are up-to-date.
+
