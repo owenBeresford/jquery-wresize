@@ -155,7 +155,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 					[ this.options.param ]
 										);
 				this.options.lastPoint=0;
-				if(this.options.continue) {
+				if(this.options.continue && ! this.options.killed ) {
 // don't wipe... may wish to run again
 					this.options._hndl=	window.setTimeout(this._wait.bind(this), this.options.retryDelay );
 				}
@@ -197,7 +197,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
     };
     
     /**
-	 * wresize ~ I only makes sense for singular objects
+	 * wresize ~ only makes sense for singular objects
 	 * 
 	 * @param array options
 	 * @access public
