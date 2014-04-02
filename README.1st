@@ -1,6 +1,29 @@
-This is random notes.
+This is random notes.  Please also read http://owenberesford.me.uk/resource/wresize
 
 jQuery modules don't really have any directory structure, this project root is pretending to be the htdocs directory (or whatever your servers rootdir is called).
 
-The contents of import should never be installed, but are necessary to be able to run test scripts etc.  Please get 3rd party libraries from their respective sources.  This ensure they are up-to-date.
+This module requires the following:
+  * a recent jQuery.
+  * the thing that you want to run with buffered events.
+
+
+These are the options that are currently supported
+
+   ** retryDelay (default 100) ~ how often to poll, in milliseconds. 
+			Set to smaller for more responsive. Set to larger for less taxing on the CPU
+   ** activation (default 500) ~ how to to wait before assuming the resizing is done, in milliseconds.  
+			Set to smaller for more responsive, set to larger for less CPU usage
+
+   ** debug (default 0) ~ write log messages?
+   ** continue (default true) ~ after processing the event, continue polling?
+   ** type (default 'resize') ~ which event?, please refer to a JS manual for the names.  Makes most sense to leave as 'resize'.
+   ** realElement ~ Some browsers don't behave correctly for resize when not registered to the window.  Set this to use your element, or the code will force the use of window
+   ** context (default null) ~ allow callbacks to be methods on objects, by passing a reference to the object.  Matches rest of jQuery.
+   ** lastPoint ~ internal don't set
+   ** callback ~ set this via wait()
+   ** _hndl ~ internal, don't set
+   ** killed ~ set this via abort()
+
+PS, on FF this works best attached to the window, not the document.  Its a browser thing.
+
 
