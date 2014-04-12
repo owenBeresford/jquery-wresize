@@ -63,7 +63,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 // msie 8
 		if (window.attachEvent && !window.addEventListener) {
 			if(options.debug) {
-				console.log("wresize() WARNING: Ancient broswer, hopefully everything still computes.");
+				console.log("wresize() WARNING: Ancient browser, hopefully everything still computes.");
 			}
 
 		}
