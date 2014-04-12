@@ -1,4 +1,4 @@
 jquery-wresize
 ==============
 
-Plugin to colapse window resize events.  Please see other readme.
+Plugin to collapse window resize events.  Please see other readme.
