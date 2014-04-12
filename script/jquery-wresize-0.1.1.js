@@ -35,7 +35,7 @@ These are the options that are currently supported
 			Set to smaller for more responsive, set to larger for less CPU usage
 
    ** debug (default 0) ~ write log messages?
-   ** continue (default true) ~ after processing the event, continue polling?
+   ** _continue (default 1) ~ after processing the event, continue polling?  MSIE had some issues with this being a bool, so its now an int. Use 0 for false etc etc.
    ** type (default 'resize') ~ which event?, please refer to a JS manual for the names.  Makes most sense to leave as 'resize'.
    ** realElement ~ Some browsers don't behave correctly for resize when not registered to the window.  Set this to use your element, or the code will force the use of window
    ** context (default null) ~ allow callbacks to be methods on objects, by passing a reference to the object.  Matches rest of jQuery.
@@ -58,11 +58,14 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 	 * @return <object>
 	 */
     $.wresize = function(el, options) {
+// msie 8
+		if (window.attachEvent && !window.addEventListener) {
+			if(options.debug) {
+				console.log("wresize() WARNING: Ancient broswer, hopefully everything still computes.");
+			}
+		}
 
 		function BufferedEvent(el, options) {
-			// To avoid scope issues, use 'this' instead of 'this'
-			// to reference this class from internal events and functions.
-
 			this.$el  = $(el);
 			this.el   = el;
 			this.$el.data("wresize", this);
@@ -155,7 +158,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 					[ this.options.param ]
 										);
 				this.options.lastPoint=0;
-				if(this.options.continue && ! this.options.killed ) {
+				if(typeof this.options._continue == 'number' && this.options._continue && ! this.options.killed) {
 // don't wipe... may wish to run again
 					this.options._hndl=	window.setTimeout(this._wait.bind(this), this.options.retryDelay );
 				}
@@ -189,7 +192,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 		debug:1,
 		type:'resize',
 		lastPoint:0,
-		continue:true,
+		_continue:1,
 		context:null,
 		callback:null,
 		_hndl:null,
