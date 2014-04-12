@@ -1,3 +1,4 @@
+/*jslint white: true, browser: true, devel: true,  nomen: true, todo: true */
 /**
  *  jquery-wresize
  * 
@@ -46,9 +47,10 @@ These are the options that are currently supported
 
 PS, on FF this works best attached to the window, not the document.  Its a browser thing.
 
- */
-"use strict";
+*/
+
 (function($){
+	"use strict";
 	/**
 	 * wresize ~ jQuery style constructor 
 	 * 
@@ -57,13 +59,15 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 	 * @access public
 	 * @return <object>
 	 */
-    $.wresize = function(el, options) {
+	$.wresize = function(el, options) {
 // msie 8
 		if (window.attachEvent && !window.addEventListener) {
 			if(options.debug) {
 				console.log("wresize() WARNING: Ancient broswer, hopefully everything still computes.");
 			}
+
 		}
+
 
 		function BufferedEvent(el, options) {
 			this.$el  = $(el);
@@ -76,7 +80,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 			return this; 	
 		}
 
-    /**
+	/**
 	 * wait ~ start the waiting process
 	 * 
 	 * @param function callback
@@ -84,15 +88,15 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 	 * @access public
 	 * @return the object
 	 */ 
-       BufferedEvent.prototype.wait = function(callback, param) {
+	   BufferedEvent.prototype.wait = function(callback, param) {
 			this.options.callback=callback;
 			this.options.param=param;
 			this._register(this.el, this.options.type, this._flush);
 			this._wait();
 			return this;
-        };
-        
-    /**
+	    };
+	    
+	/**
 	 * abort ~ abort timers and callbacks
 	 * 
 	 * @access public
@@ -107,7 +111,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 			return this;
 		};
 
-    /**
+	/**
 	 * _register ~ a hidden function to add an event handler regardless of browser.
 		  doing this by hand on purpose....
 	 * 
@@ -117,20 +121,20 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 	 * @access private
 	 * @return void;
 	 */ 
-    	BufferedEvent.prototype._register=function(ele, type, callback) {
+		BufferedEvent.prototype._register=function(ele, type, callback) {
 
-			if (ele == null || typeof ele == 'undefined') {
+			if (typeof ele === 'undefined') {
 				if(this.options.debug) {
 					console.log("wresize() was passed a null element.");
 				}
 				return;
 			}
-			if(typeof ele.jquery == 'string') {
+			if(typeof ele.jquery === 'string') {
 				ele=ele[0];
 			}
-			if (typeof ele.addEventListener == 'function') {
+			if (typeof ele.addEventListener === 'function') {
 				ele.addEventListener( type, callback.bind(this), false );
-			} else if (typeof ele.attachEvent == 'function') {
+			} else if (typeof ele.attachEvent === 'function') {
 				ele.attachEvent( "on" + type, callback );
 			} else {
 				if(this.options.debug) {
@@ -138,9 +142,9 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 				}
 				ele["on"+type]=callback;
 			}
-		}
+		};
 
-    /**
+	/**
 	 * _wait ~ a hidden function to delay until the stack of events has triggered
 	 * 
 	 * @access private
@@ -158,7 +162,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 					[ this.options.param ]
 										);
 				this.options.lastPoint=0;
-				if(typeof this.options._continue == 'number' && this.options._continue && ! this.options.killed) {
+				if(typeof this.options._continue === 'number' && this.options._continue && ! this.options.killed) {
 // don't wipe... may wish to run again
 					this.options._hndl=	window.setTimeout(this._wait.bind(this), this.options.retryDelay );
 				}
@@ -167,7 +171,7 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 					this.options._hndl=	window.setTimeout(this._wait.bind(this), this.options.retryDelay );
 				}
 			}
-		}
+		};
 
 	/**
 	 * _flush ~ process the actual browser event
@@ -180,14 +184,14 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 				console.log("wresize() have got a browser event ");
 			}
 			this.options.lastPoint=new Date().getTime();
-		}
+		};
 
-        return new BufferedEvent(el, options);
-    };
-   
+	    return new BufferedEvent(el, options);
+	};
+
 // pls see doc header 
-    $.wresize.defaultOptions = {
-        retryDelay:100,
+	$.wresize.defaultOptions = {
+	    retryDelay:100,
 		activation:500,
 		debug:1,
 		type:'resize',
@@ -197,22 +201,20 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 		callback:null,
 		_hndl:null,
 		killed:false,
-    };
-    
-    /**
+	};
+	
+	/**
 	 * wresize ~ only makes sense for singular objects
 	 * 
 	 * @param array options
 	 * @access public
 	 * @return void;
 	 */ 
-    $.fn.wresize = function(options){ 
+	$.fn.wresize = function(options) { 
 		if(! options.realElement) {
-        	return new $.wresize(window, options);
-		} else {
-        	return new $.wresize(this, options);
-		}
-    };
-   
- 	
-})(jQuery);
+	    	return new $.wresize(window, options);
+		} 
+	   	return new $.wresize(this, options);
+	};
+	
+}(jQuery));
