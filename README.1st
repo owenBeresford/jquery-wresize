@@ -4,6 +4,8 @@ jQuery modules don't really have any directory structure, this project root is p
 
 This module requires the following:
   * a recent jQuery.
+  * To work on older MSIE, pls import es5-shim, or a similar library.  This is nothing to do with my code, but that older browsers don't implement the full ECMA script spec. https://github.com/es-shims/es5-shim 
+  * I am not using JSON, but importing JSON2 is recommended as well.
   * the thing that you want to run with buffered events.
 
 
