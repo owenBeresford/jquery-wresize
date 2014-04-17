@@ -135,12 +135,12 @@ PS, on FF this works best attached to the window, not the document.  Its a brows
 			if (typeof ele.addEventListener === 'function') {
 				ele.addEventListener( type, callback.bind(this), false );
 			} else if (typeof ele.attachEvent === 'function') {
-				ele.attachEvent( "on" + type, callback );
+				ele.attachEvent( "on" + type, callback.bind(this));
 			} else {
 				if(this.options.debug) {
 					console.log("wresize() failed over to single handler mode.  Please update your interpreter.");
 				}
-				ele["on"+type]=callback;
+				ele["on"+type]= callback.bind(this);
 			}
 		};
 
