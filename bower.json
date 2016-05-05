@@ -1,0 +1,8 @@
+{
+  "name": "jquery-wresize",
+  "version": "1.2.0",
+  "homepage": "https://github.com/owenBeresford/jquery-wresize",
+  "description": "Plugin to colapse window resize events.",
+  "main": "jquery-wresize.js",
+  "license": "Affero GPL"`
+}
